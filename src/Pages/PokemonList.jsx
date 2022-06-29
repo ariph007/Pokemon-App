@@ -26,6 +26,7 @@ const PokemonList = () => {
 
     useEffect(() => {
         getPokemons();
+        // console.log(context.myPokemon)
     }, []);
 
     return (
