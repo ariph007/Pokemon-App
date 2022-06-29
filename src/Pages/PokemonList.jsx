@@ -26,7 +26,7 @@ const PokemonList = () => {
 
     useEffect(() => {
         getPokemons();
-        // console.log(context.myPokemon)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

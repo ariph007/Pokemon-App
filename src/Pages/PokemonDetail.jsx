@@ -1,7 +1,7 @@
 import { React, useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from "react-router-dom";
-import { PokemonContext } from '../utils/context.js'
-import axios from 'axios'
+import { PokemonContext } from '../utils/context.js';
+import axios from 'axios';
 import Header from '../Components/Header/Header.jsx';
 
 
@@ -9,28 +9,25 @@ const PokemonDetail = () => {
   const navigate = useNavigate();
   const [popUp, setPopUp] = useState(false);
   const [namedPokemon, setNamedPokemon] = useState('');
-  const [failedPopUp, setFailedPopUp] = useState(false)
-  const [listLocal, setListLocal] = useState([])
+  const [failedPopUp, setFailedPopUp] = useState(false);
+  const [listLocal, setListLocal] = useState([]);
   const context = useContext(PokemonContext);
   const { id } = useParams();
   const [detailAbility, setDetailAbility] = useState([]);
-  const myPokemon = useState([])
   const detailPokemonById = context.pokemons[`${id}` - 1];
   const pokemonName = detailPokemonById.name;
   const pokemonType = detailPokemonById.types[0].type.name;
-  const pokemonImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`
+  const pokemonImg = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+  const ability = detailPokemonById.abilities[0].ability.name;
+  const styledetail = ` ${detailPokemonById.types[0].type.name}`
 
-  const ability = detailPokemonById.abilities[0].ability.name
-  // console.log(ability)
+
   const getDetailAbility = async () => {
     const response = await axios.get(`https://pokeapi.co/api/v2/ability/${ability}`)
     setDetailAbility(response.data.effect_entries[1].effect)
   }
 
-  // console.log(detailAbility)
-  // console.log(typeof (effect))
-
-  function capitalizeName(string) {
+  const capitalizeName = (string) => {
     return string.charAt(0).toUpperCase() + string.slice(1);
   };
 
@@ -57,64 +54,41 @@ const PokemonDetail = () => {
       const list = {
         'name': `${pokemonName}`,
         'img': `${pokemonImg}`,
+        'type': `${pokemonType}`,
+        'id': `${id}`
       }
-      setListLocal(list)
-      // context.setMyPokemon(list)
-      // console.log(context.myPokemon)
-      console.log(prob)
+      setListLocal(list);
 
     } else {
       setPopUp(false);
-      setFailedPopUp(!failedPopUp)
-      console.log(prob)
+      setFailedPopUp(!failedPopUp);
     }
   };
 
   const saveHandler = (e) => {
     e.preventDefault();
-    if(namedPokemon === ''){
+    if (namedPokemon === '') {
       window.alert("Name cannot be empty");
-    }else{
+    } else {
       localStorage.setItem(namedPokemon, JSON.stringify(listLocal));
       setPopUp(!popUp);
-      navigate('/')
+      navigate('/');
     }
-    // const yourPokemon = document.getElementById('yourPokemonName').value;
-    // setNamedPokemon(yourPokemon)
-    console.log(namedPokemon)
-  }
+  };
 
-  const closeHandler = (e) =>{
+  const closeHandler = (e) => {
     e.preventDefault();
-    navigate('/')
-  }
+    navigate('/');
+  };
 
-  const inputNameHandler = (e) =>{
-    setNamedPokemon(e.target.value)
-    // console.log(namedPokemon)
-  }
-
-  function makeid(length) {
-    var result = '';
-    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for (var i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() *
-        charactersLength));
-    }
-    return result;
-  }
-  const randName = makeid(6)
-
-
+  const inputNameHandler = (e) => {
+    setNamedPokemon(e.target.value);
+  };
 
   useEffect(() => {
-    getDetailAbility()
+    getDetailAbility();
 
-    // console.log(context.myPokemon)
-  }, [])
-  // console.log(context.pokemons)
-  const styledetail = ` ${detailPokemonById.types[0].type.name}`
+  }, []);
 
   return (
     <div className={styledetail}>
@@ -135,8 +109,8 @@ const PokemonDetail = () => {
             <button onClick={closeHandler} className='px-4 py-4 text-white bg-cyan-500 font-semibold text-2xl mt-4'>Close</button>
           </form>
         </div>}
-        
-        
+
+
         <div className="wrapper h-full flex flex-col">
           <Header />
           <div className="title lg:mt-10 flex justify-center lg:justify-between mb-10 content-center">

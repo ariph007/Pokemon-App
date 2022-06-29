@@ -1,10 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
 const Cards = ({ id, name, image, type }) => {
-    function capitalizeName(string) {
+    const capitalizeName = (string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
-    }
+    };
 
     const styleType = `flex w-[150px] h-[300px] cursor-pointer hover:scale-110 overflow-hidden container shadow-md p-5 box-content rounded-md ${type}`;
     return (
