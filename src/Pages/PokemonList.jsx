@@ -1,10 +1,11 @@
-import { React, useEffect, useState } from 'react';
+import { React, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-
-import Cards from '../Components/Cards';
+import {PokemonContext} from '../utils/context.js'
+import Cards from '../Components/Cards/Cards';
+import Header from '../Components/Header/Header.jsx';
 
 const PokemonList = () => {
-    const [pokemons, setPokemons] = useState([]);
+    const context = useContext(PokemonContext);
     const [loadMore, setLoadMore] = useState('https://pokeapi.co/api/v2/pokemon?limit=20');
 
     const getPokemons = async () => {
@@ -16,10 +17,9 @@ const PokemonList = () => {
             result.forEach(async (pokemon) => {
                 const res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
                 const data = await res.data;
-                setPokemons((currentList) => [...currentList, data]);
+                context.setPokemons((currentList) => [...currentList, data]);
             });
         }
-
         createPokemon(data.results);
     };
 
@@ -30,9 +30,10 @@ const PokemonList = () => {
 
     return (
 
-        <div className='container flex flex-col justify-center content-center m-auto'>
-            <div className="wrapper  w-full max-w-[1024px] content-center m-auto justify-center flex flex-wrap gap-10">
-                {pokemons.map((pokemon, i) => (
+        <div className='container flex flex-col w-full max-w-[1280px] m-auto'>
+            <Header/>
+            <div className="wrapper content-center m-auto justify-center flex flex-wrap gap-10">
+                {context.pokemons.map((pokemon, i) => (
                     <Cards
                         key={i}
                         id={pokemon.id}
