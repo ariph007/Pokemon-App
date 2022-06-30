@@ -1,10 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {capitalizeName} from '../../utils/index.js'
 
 const CardsMyPokemons = ({ customName, name, image, type, id }) => {
-    const capitalizeName = (string) => {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    };
 
     const releaseHandler = (e) => {
         e.preventDefault();

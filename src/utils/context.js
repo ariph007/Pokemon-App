@@ -4,11 +4,9 @@ export const PokemonContext = React.createContext(null);
 
 export const ContextWrapper = (props) => {
     const [pokemons, setPokemons] = useState([]);
-    const [detailPokemon, setDetailPokemon] = useState([]);
-    const [myPokemon, setMyPokemon] = useState([])
 
     return (
-        <PokemonContext.Provider value={{ pokemons, setPokemons, detailPokemon, setDetailPokemon, myPokemon,setMyPokemon }}>
+        <PokemonContext.Provider value={{ pokemons, setPokemons }}>
             {props.children}
         </PokemonContext.Provider>
     )

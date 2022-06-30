@@ -1,6 +1,6 @@
 import { React, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import {PokemonContext} from '../utils/context.js'
+import { PokemonContext } from '../utils/context.js'
 import Cards from '../Components/Cards/Cards';
 import Header from '../Components/Header/Header.jsx';
 
@@ -23,16 +23,21 @@ const PokemonList = () => {
         createPokemon(data.results);
     };
 
+    // Sort pokemon list cause async make the data not sort
+    context.pokemons.sort(function (a, b) {
+        return a.id - b.id || a.name.localeCompare(b.name);
+    });
+
 
     useEffect(() => {
         getPokemons();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
 
         <div className='container flex flex-col w-full max-w-[1280px] m-auto'>
-            <Header/>
+            <Header />
             <div className="wrapper content-center m-auto justify-center flex flex-wrap gap-10">
                 {context.pokemons.map((pokemon, i) => (
                     <Cards

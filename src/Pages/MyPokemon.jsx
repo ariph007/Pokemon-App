@@ -4,12 +4,12 @@ import Header from '../Components/Header/Header';
 
 const MyPokemon = () => {
 const allMyPokemons = {...localStorage};
-console.log(allMyPokemons);
 
 const arrayPokemon = Object.keys(allMyPokemons).map((key)=>{
   const arr = JSON.parse(allMyPokemons[key]);
   return [key, arr];
 });
+console.log(arrayPokemon);
 
   return (
     <div className='container flex flex-col w-full max-w-[1280px] m-auto'>
