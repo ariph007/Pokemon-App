@@ -11,10 +11,10 @@ const truncateString = (str, num) => {
 };
 
 const probality = () => {
-    if (Math.random() < 0.5) {
-        return 0
-    } else {
+    if (Math.random() <= 0.5) {
         return 1
+    } else {
+        return 0
     }
 };
 

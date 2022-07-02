@@ -74,7 +74,7 @@ const PokemonDetail = () => {
   return (
     <div className={`${styledetail} sm:w-full`}>
       <div className='content-center m-auto justify-center flex md:w-[1024px]'>
-        {popUp && <div className="popUp z-10 absolute flex w-[1280px] h-[840px] bg-slate-600/80 content-center justify-center">
+        {popUp && <div className="popUp z-10 absolute flex w-full h-[1000px] md:w-[1280px] md:h-[840px] bg-slate-600/80 content-center justify-center">
           <form className='flex flex-col justify-center content-center'>
             <p className='text-white font-medium text-3xl text-center'>Woahhhh !!!</p>
             <p className='text-white font-medium text-3xl mb-4'> You catch {capitalizeName(pokemonName)}</p>
